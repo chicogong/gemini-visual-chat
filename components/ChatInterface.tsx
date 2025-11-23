@@ -114,16 +114,16 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
   return (
     <div className="flex flex-col h-full bg-ag-bg relative">
       {/* Header - Clean & Simple */}
-      <div className="h-16 border-b border-ag-border bg-ag-bg/80 backdrop-blur flex items-center justify-between px-6 shrink-0 sticky top-0 z-10">
+      <div className="h-16 border-b border-ag-border bg-white/80 backdrop-blur flex items-center justify-between px-6 shrink-0 sticky top-0 z-10">
         <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-ag-accent rounded-lg flex items-center justify-center text-white shadow-lg shadow-ag-accent/20">
+            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-md shadow-indigo-200">
               <Bot size={20} />
             </div>
-            <span className="text-lg font-semibold text-ag-text tracking-tight">Assistant</span>
+            <span className="text-lg font-bold text-gray-900 tracking-tight">Assistant</span>
         </div>
         <button 
             onClick={handleClear} 
-            className="text-ag-muted hover:text-ag-text transition-colors p-2 rounded-lg hover:bg-ag-hover flex items-center gap-2 text-sm font-medium"
+            className="text-gray-500 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2 text-sm font-medium"
         >
             <Trash2 size={16} />
             <span className="hidden sm:inline">Clear</span>
@@ -138,10 +138,10 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
             className={`flex gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'} w-full max-w-4xl mx-auto`}
           >
             {/* Avatar */}
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 shadow-sm
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 shadow-sm border
               ${msg.role === 'model' 
-                ? 'bg-ag-card text-ag-accent' 
-                : 'bg-ag-accent text-white'
+                ? 'bg-white border-gray-200 text-indigo-600' 
+                : 'bg-indigo-600 border-indigo-600 text-white'
               }`}
             >
               {msg.role === 'model' ? <Sparkles size={16} /> : <User size={16} />}
@@ -153,14 +153,14 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
                <div className={`
                  text-[15px] leading-relaxed
                  ${msg.role === 'user' 
-                   ? 'bg-ag-accent text-white px-5 py-3 rounded-2xl rounded-tr-sm shadow-md' 
-                   : 'text-ag-text'
+                   ? 'bg-indigo-600 text-white px-5 py-3 rounded-2xl rounded-tr-sm shadow-sm' 
+                   : 'text-gray-800'
                  }
                `}>
                  {msg.role === 'model' ? (
                    <div className="w-full">
                       {msg.text && (
-                        <div className="prose prose-invert prose-sm max-w-none mb-4">
+                        <div className="prose prose-slate max-w-none mb-4">
                            <ReactMarkdown>{msg.text}</ReactMarkdown>
                         </div>
                       )}
@@ -179,11 +179,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
         ))}
         {isLoading && (
           <div className="flex gap-4 w-full max-w-4xl mx-auto">
-             <div className="w-8 h-8 rounded-full bg-ag-card flex items-center justify-center shrink-0 mt-1">
-               <Sparkles size={14} className="text-ag-accent animate-pulse" />
+             <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shrink-0 mt-1 shadow-sm">
+               <Sparkles size={14} className="text-indigo-600 animate-pulse" />
              </div>
              <div className="flex items-center h-8">
-               <span className="text-sm text-ag-muted">Thinking...</span>
+               <span className="text-sm text-gray-500 font-medium">Thinking...</span>
              </div>
           </div>
         )}
@@ -191,7 +191,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t border-ag-border bg-ag-bg">
+      <div className="p-4 border-t border-ag-border bg-white">
         <div className="max-w-3xl mx-auto space-y-4">
             {/* Quick Prompts */}
             {!isLoading && messages.length < 3 && (
@@ -200,7 +200,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
                         <button
                             key={idx}
                             onClick={() => handleSend(prompt)}
-                            className="px-4 py-2 bg-ag-card hover:bg-ag-border text-ag-text text-xs font-medium rounded-full transition-all border border-ag-border hover:border-ag-muted/50"
+                            className="px-4 py-2 bg-white hover:bg-gray-50 text-gray-700 text-xs font-medium rounded-full transition-all border border-gray-200 hover:border-gray-300 shadow-sm"
                         >
                             {prompt}
                         </button>
@@ -208,7 +208,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
                 </div>
             )}
             
-            <div className="relative shadow-lg rounded-2xl bg-ag-header">
+            <div className="relative shadow-md rounded-2xl bg-white border border-gray-200 focus-within:ring-2 focus-within:ring-indigo-100 focus-within:border-indigo-400 transition-all">
                 <textarea
                     ref={textareaRef}
                     value={input}
@@ -216,14 +216,14 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ apiKey }) => {
                     onKeyDown={handleKeyDown}
                     placeholder="Ask for a movie list, a comparison table, or a chart..."
                     rows={1}
-                    className="w-full bg-transparent border-none text-ag-text rounded-2xl px-5 py-4 pr-14 
-                            focus:ring-0 resize-none max-h-48 text-[15px] placeholder-ag-muted"
+                    className="w-full bg-transparent border-none text-gray-900 rounded-2xl px-5 py-4 pr-14 
+                            focus:ring-0 resize-none max-h-48 text-[15px] placeholder-gray-400"
                 />
                 <button 
                     onClick={() => handleSend()}
                     disabled={!input.trim() || isLoading}
-                    className="absolute right-2 bottom-2 p-2.5 bg-ag-accent text-white rounded-xl 
-                            hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="absolute right-2 bottom-2 p-2.5 bg-indigo-600 text-white rounded-xl 
+                            hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
                 >
                     <Send size={18} />
                 </button>
