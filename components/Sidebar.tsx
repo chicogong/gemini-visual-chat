@@ -31,17 +31,17 @@ export const Sidebar: React.FC = () => {
         
         <a href="#" className="flex flex-col md:flex-row items-center md:gap-3 p-2 md:px-3 md:py-2.5 rounded-lg text-indigo-700 bg-indigo-50 font-medium transition-colors group">
             <MessageSquare size={24} className="md:w-5 md:h-5 text-indigo-600 group-hover:text-indigo-700" />
-            <span className="text-[10px] md:text-sm mt-1 md:mt-0">Chat</span>
+            <span className="text-[10px] md:text-sm mt-1 md:mt-0">对话</span>
         </a>
 
         <a href="#" className="flex flex-col md:flex-row items-center md:gap-3 p-2 md:px-3 md:py-2.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors group">
             <PieChart size={24} className="md:w-5 md:h-5 group-hover:text-gray-900" />
-            <span className="text-[10px] md:text-sm mt-1 md:mt-0">Overview</span>
+            <span className="text-[10px] md:text-sm mt-1 md:mt-0">概览</span>
         </a>
 
         <a href="#" className="flex flex-col md:flex-row items-center md:gap-3 p-2 md:px-3 md:py-2.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors group md:hidden">
             <Settings size={24} className="md:w-5 md:h-5 group-hover:text-gray-900" />
-            <span className="text-[10px] md:text-sm mt-1 md:mt-0">Settings</span>
+            <span className="text-[10px] md:text-sm mt-1 md:mt-0">设置</span>
         </a>
       </nav>
 
@@ -49,7 +49,7 @@ export const Sidebar: React.FC = () => {
       <div className="hidden md:block p-4 border-t border-ag-border shrink-0">
         <button className="flex items-center gap-3 text-gray-500 hover:text-gray-900 transition-colors w-full px-2 py-2 rounded-lg hover:bg-gray-100">
           <Settings size={20} />
-          <span className="text-sm font-medium">Settings</span>
+          <span className="text-sm font-medium">设置</span>
         </button>
       </div>
     </div>

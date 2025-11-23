@@ -1,5 +1,7 @@
 {
   "name": "Nexus AI Dashboard",
   "description": "A versatile high-density AI chat interface for both enterprise analysis and personal lifestyle decisions, featuring interactive AG-style widgets.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "microphone"
+  ]
 }

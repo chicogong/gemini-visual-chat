@@ -11,15 +11,15 @@ const generateUiTool: FunctionDeclaration = {
       componentType: {
         type: Type.STRING,
         enum: ['barChart', 'lineChart', 'pieChart', 'metricCard', 'dataTable', 'alert', 'cardGrid'],
-        description: 'The type of UI component to render. Use "cardGrid" for creative lists (movies, recipes), "dataTable" for dense data comparisons.',
+        description: 'The type of UI component to render. Use "cardGrid" for rich visual lists (Recipes, Movies, Steps, Products).',
       },
       title: {
         type: Type.STRING,
-        description: 'The title of the widget.',
+        description: 'The title of the widget (in Chinese).',
       },
       description: {
         type: Type.STRING,
-        description: 'A short description or context for the data.',
+        description: 'A short description or context for the data (in Chinese).',
       },
       data: {
         type: Type.STRING,
@@ -42,27 +42,27 @@ export const sendMessageToGemini = async (
   const ai = new GoogleGenAI({ apiKey });
   
   const systemInstruction = `
-    You are a helpful, versatile AI assistant. 
+    You are a helpful, versatile AI assistant named Nexus. 
     
-    TONE: Friendly, clear, and concise. Avoid overly robotic or sci-fi language.
+    LANGUAGE RULES:
+    - **ALWAYS respond in Simplified Chinese (简体中文)**.
+    - Ensure all generated charts, titles, and descriptions are in Chinese.
     
-    CAPABILITIES:
-    1. **Data Analysis**: Help with business metrics, sales, or technical logs.
-    2. **Personal Assistant**: Help with movie recommendations, travel planning, meal prep, and shopping comparisons.
+    UI/VISUALIZATION STRATEGY (CRITICAL):
+    - Users prefer **Beautiful UI** over plain text.
+    - **Cooking/Recipes (烹饪/食谱)**: If asked "How to cook X" (怎么做X), ALWAYS use a **'cardGrid'** to show 3-4 distinct recipe variations (e.g., Spicy, Home-style, Steam).
+      - Data Format: [{ "title": "家常红烧肉", "description": "经典做法，肥而不腻...", "rating": "难度: 中", "category": "热门", "tags": ["五花肉", "45分钟"] }]
+    - **Lists/Recommendations**: Use 'cardGrid' (Movies, Books, Travel Plans).
+    - **Comparisons**: Use 'dataTable' (Phone specs, Prices).
+    - **Stats/Trends**: Use 'metricCard' or Charts.
 
-    VISUALIZATION RULES:
-    - If the user asks for a list, comparison, or data, visualize it using 'generate_ui_component'.
-    
-    WIDGET GUIDE:
-    - **cardGrid**: Use for "fun" visual lists (Movies, Books, Places, Recipes, Products).
-      - Data for CardGrid: [{ "title": "Inception", "description": "...", "rating": "9.0", "category": "Sci-Fi", "tags": ["Dream", "Action"] }]
-    - **dataTable**: Use for detailed comparisons (Phone specs, Financials).
-    - **metricCard**: Use for quick stats.
-    - **Charts**: Use for trends or distributions.
+    WIDGET DATA SPECS:
+    - **cardGrid**: 
+       - Fields: title, description, rating (can be text like "4.5" or "Easy"), category, tags (array of strings).
+       - Provide at least 3-4 items.
+    - **dataTable**: Ensure columns are useful.
 
-    IMPORTANT:
-    - Generate REALISTIC data.
-    - For lists/tables, provide at least 5-6 items so the UI looks good.
+    TONE: Friendly, professional, clear.
   `;
 
   const chat = ai.chats.create({
@@ -104,11 +104,11 @@ export const sendMessageToGemini = async (
         };
         
         if (!response.text) {
-             outputText = "Here is the visual summary you asked for.";
+             outputText = `已为您生成 "${args.title}" 的相关视图：`;
         }
       } catch (e) {
         console.error("Failed to parse widget data", e);
-        outputText = "I tried to generate a visual, but something went wrong with the data format.";
+        outputText = "尝试生成可视化组件时数据格式出现错误。";
       }
     }
   } 
